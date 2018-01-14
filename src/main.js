@@ -39,6 +39,6 @@ new Vue({
     components: {App},
     created() {
         // this.$store.dispatch('setLocale', 'de');
-        this.$on('toast', toast);
+        this.$on('toast', function(msg) { toast(i18n.t(msg)); });
     }
 });

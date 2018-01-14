@@ -114,7 +114,7 @@ const actions = {
         return api
             .putProfile(postData)
             .then(response => {
-                commit(types.PROFILE_SET, response.model);
+                commit(types.PROFILE_SET, response);
                 commit(types.PROFILE_SAVE_SUCCESS);
                 return state.profile;
             })

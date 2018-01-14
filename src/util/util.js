@@ -45,6 +45,10 @@ export const toast = function(message) {
 
 export const processErrors = function (list) {
     let errors = {};
+    if(! (list instanceof Array)) {
+        return [{'global': list}];
+    }
+
     list.forEach(function (item) {
         let slot = errors[item.param] || (errors[item.param] = []);
         slot.push(item.msg);

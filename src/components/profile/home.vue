@@ -101,32 +101,33 @@
                 editable  : {}
             }
         },
-        mounted(){
+        created(){
             materialize();
-            this.$store.dispatch('getEditableProfile')
-                .then(profile => {
-                    this.editable = profile;
-                })
+            this.createEditable();
         },
         updated    : materialize,
         computed   : {
             profile() {
                 return this.$store.state.authUserStore.profile;
             },
-
             user() {
                 return this.$store.state.authUserStore.profile;
             }
         },
         methods    : {
-            setLevel(num) {
-                this.editable.fitnessLevel = num;
+            createEditable() {
+                this.$store
+                    .dispatch('getEditableProfile')
+                    .then(profile => {
+                        this.editable = profile;
+                    });
             },
+
             handleSaveProfile() {
                 this.$store
                     .dispatch('putProfile', this.editable)
                     .then((success) => {
-                        this.$root.$emit('toast', this.$t('message.success.profileSaved'));
+                        this.$root.$emit('toast', 'message.success.profileSaved');
                     })
                     .catch((reason) => {
                         this.hasErrors = true;
