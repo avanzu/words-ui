@@ -1,0 +1,120 @@
+.parallax-container .header {
+    text-shadow: 2px 2px .25rem #263238
+}
+
+#workout-timer {
+    margin-top: -70px
+}
+
+#sign-up-view {
+    margin-top: -70px
+}
+
+.white-text .input-field input[disabled=disabled], .white-text .input-field input[disabled=disabled] + label, .white-text .input-field input[readonly=readonly], .white-text .input-field input[readonly=readonly] + label {
+    color: hsla(0, 0%, 100%, .26) !important
+}
+
+.fitness-rating {
+    width: 19%;
+    float: left;
+    margin-right: 1%
+}
+
+.fitness-rating.darken-4 img {
+    opacity: .5
+}
+
+body {
+    background-color: red
+}
+
+.exercise-card .card-content {
+    height: 260px;
+    overflow: hidden
+}
+
+hr.divider {
+    border: 0
+}
+
+.card.sticky-action .card-reveal.large-buttons {
+    z-index: 1;
+    padding-bottom: 115px
+}
+
+.transition {
+    -webkit-transition: width .5s;
+    transition: width .5s
+}
+
+#exercise-description {
+    height: 10rem
+}
+
+#exercise-form {
+    margin-top: -70px
+}
+
+.exercise-thumb.center, .inline-button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block
+}
+
+.exercise-image.card-image {
+    position: relative
+}
+
+.exercise-image.card-image figure {
+    height: 360px;
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0
+}
+
+.exercise-image.card-image figure.svg-image img {
+    max-height: 360px;
+    padding: 2em
+}
+
+.exercise-image.card-image figure.bitmap-image img {
+    display: none
+}
+
+.exercise-image.card-image .fixed-action-btn {
+    position: absolute;
+    display: inline-block;
+    right: 1em
+}
+
+.exercise-image.card-image .play-btn {
+    position: absolute;
+    right: 1em;
+    bottom: 1em
+}
+
+.exercise-stack-item .card-image span.card-title {
+    margin-bottom: 0;
+    padding: 5px 15px
+}
+
+.col.s6 .large [data-progress], .col.s12 .large [data-progress] {
+    margin: 0 auto;
+    height: 360px;
+    max-width: 360px;
+    position: relative
+}
+
+.small [data-progress] {
+    margin: 1em auto;
+    height: 100px;
+    width: 100px;
+    position: relative
+}
+
+[data-progress] .progressbar-text {
+    font-size: 2em;
+    line-height: 2em
+}

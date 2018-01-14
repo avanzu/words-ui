@@ -1,0 +1,116 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+html, body, .view, main {
+    height      : 100%;
+    font-weight : 200;
+}
+
+/*
+.view {
+  background: url("../img/schirme.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  filter: blur(4px);
+  z-index : -500;
+}
+*/
+
+nav ul a,
+nav .brand-logo {
+    /*color: #444;*/
+}
+
+p {
+    line-height : 2rem;
+}
+
+.button-collapse {
+    /* color: #26a69a; */
+}
+
+.parallax-container {
+    min-height  : 250px;
+    line-height : 0;
+    height      : auto;
+    color       : rgba(255, 255, 255, .9);
+}
+
+.parallax-container .section {
+    width : 100%;
+}
+
+.parallax.index {
+    background : url("../img/san-fran.jpg") no-repeat top center fixed;
+    /* filter: blur(8px); */
+    filter     : blur(10px);
+}
+
+@media only screen and (max-width : 992px) {
+    .parallax-container .section {
+        position : absolute;
+        top      : 40%;
+    }
+
+    #index-banner .section {
+        top : 10%;
+    }
+}
+
+@media only screen and (max-width : 600px) {
+    #index-banner .section {
+        top : 0;
+    }
+}
+
+.icon-block {
+    padding : 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size : inherit;
+}
+
+footer.page-footer {
+    margin : 0;
+}
+
+#index-view {
+    margin-top : -90px;
+}
+
+#login-view {
+    margin-top : -70px;
+}
+
+#exercise-view {
+    /* margin-top: -70px; */
+}
+
+.container .no-margin-bottom.row {
+    margin-bottom : 0;
+}
+
+.brand-logo {
+    margin-left : 1em;
+}
+
+.thin-text {
+    font-weight : 200;
+}
+
+.btn.fill, .btn-large.fill {
+    width : 100%;
+}
+
+.card-title {
+    font-weight : 200 !important;
+}
