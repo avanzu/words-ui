@@ -7,6 +7,7 @@ import navigationStore from "./module/navigation";
 import debugStore from './module/debug';
 import environmentStore from './module/environment';
 import i18nStore from './module/i18n';
+import projectStore from './module/project';
 
 Vue.use(Vuex);
 
@@ -17,7 +18,8 @@ const modules = {
     'navigationStore'  : navigationStore,
     'environmentStore' : environmentStore,
     'i18nStore'        : i18nStore,
-    'debugStore'       : debugStore
+    'debugStore'       : debugStore,
+    'projectStore'     : projectStore
 };
 
 /*

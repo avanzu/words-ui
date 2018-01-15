@@ -3,9 +3,7 @@
  */
 import Vue from "vue";
 import vueResource from "vue-resource";
-import header from "../util/auth-header";
 import params from '../parameters';
-import connector from '../util/api-connector';
 
 
 Vue.use(vueResource);

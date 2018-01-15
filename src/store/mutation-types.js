@@ -33,6 +33,22 @@ export const USER_SIGN_UP         = 'USER_SIGN_UP';
 export const USER_SIGN_UP_SUCCESS = 'USER_SIGN_UP_SUCCESS';
 export const USER_SIGN_UP_FAILURE = 'USER_SIGN_UP_FAILURE';
 
+// ------------------------------------------------------------------------------------------------------------- PROJECT
+
+export const PROJECTS_FETCH         = 'PROJECTS_FETCH';
+export const PROJECTS_FETCH_SUCCESS = 'PROJECTS_FETCH_SUCCESS';
+export const PROJECTS_FETCH_FAILURE = 'PROJECTS_FETCH_FAILURE';
+
+export const PROJECT_STATS_FETCH    = 'PROJECT_STATS_FETCH';
+export const PROJECT_STATS_FETCH_SUCCESS = 'PROJECT_STATS_FETCH_SUCCESS';
+export const PROJECT_STATS_FETCH_FAILURE = 'PROJECT_STATS_FETCH_FAILURE';
+
+// -----------------------------------------------------------------------------------------------------------TRANS-UNIT
+
+
+// ----------------------------------------------------------------------------------------------------------TRANSLATION
+
+
 // ---------------------------------------------------------------------------------------------------------------- I18N
 
 export const SET_LOCALE_SUCCESS = 'SET_LOCALE_SUCCESS';

@@ -42,15 +42,12 @@ const actions = {
                 commit(types.AUTHENTICATE_FAILURE, reason);
                 return Promise.reject(reason);
             })
-            /*
-            .then(() => {
-                // reload HATEOAS
-                return dispatch('bootApplication');
-            })
-            */
             .then(() => {
                 // load user profile
                 return dispatch('getProfile', true);
+            })
+            .then(() => {
+                return dispatch('bootApplication');
             })
             ;
     },

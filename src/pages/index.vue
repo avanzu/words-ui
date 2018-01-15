@@ -1,7 +1,7 @@
 <template>
     <div>
         <app-layout>
-            <h1>main container?</h1>
+            <project-list></project-list>
         </app-layout>
     </div>
 </template>
@@ -11,13 +11,16 @@
 <script type="text/javascript">
 
     import appLayout from './layout'
+    import projectList from '../components/project/project-list'
 
     export default{
+
         data(){
             return{}
         },
         components: {
-            appLayout
+            appLayout,
+            projectList
         }
 
     }

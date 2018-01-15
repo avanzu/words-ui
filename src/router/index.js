@@ -4,6 +4,7 @@ import store     from '../store';
 import loginPage from "../pages/login";
 import indexPage from "../pages/index";
 import signUpPage from '../pages/sign-up';
+import projectEditor from '../components/project/project-editor';
 
 const profile  = r => require.ensure([], () => r(require('../pages/profile.vue')), 'profile');
 const home     = r => require.ensure([], () => r(require('../components/profile/home')), 'profile');
@@ -36,6 +37,7 @@ const router = new VueRouter({
                 requiresAuth : false
             }
         },
+
         {
             path      : '/profile',
             // name      : 'profile',
@@ -69,6 +71,22 @@ const router = new VueRouter({
                     }
                 },
             ]
+        },
+        {
+            path      : '/project/create',
+            name      : 'createProject',
+            component : projectEditor,
+            meta      : {
+                requiresAuth : true
+            }
+        },
+        {
+            path      : '/project/update/:slug',
+            name      : 'updateProject',
+            component : projectEditor,
+            meta      : {
+                requiresAuth : true
+            }
         }
 
     ]

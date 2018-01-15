@@ -7,25 +7,25 @@ import params from "../parameters";
 
 Vue.use(vueResource);
 
-const bootApplication = function( headers ) {
+const urls = {
+    index: Vue.resource(params.apiEndpoint + '/environment')
+};
 
-    return Vue
-        .http
-        .get(params.apiEndpoint)
+const bootApplication = function() {
+
+    return urls.index.get()
         .then(response => {
             if( response.status !== 200 ) return Promise.reject(response);
-            return response.data;
+            return response.body.result.resource;
         })
     ;
 };
 
 const reloadApplication = function() {
-    return Vue
-        .http
-        .get(params.apiEndpoint)
+    return urls.index.get()
         .then(response => {
             if( response.status !== 200 ) return Promise.reject(response);
-            return response.data;
+            return response.body.result.resource;
         })
         ;
 };
