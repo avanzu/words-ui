@@ -48,6 +48,14 @@ export const PROJECT_STATS_FETCH_FAILURE = 'PROJECT_STATS_FETCH_FAILURE';
 
 // ----------------------------------------------------------------------------------------------------------TRANSLATION
 
+export const TRANSLATION_FETCH         = 'TRANSLATION_FETCH';
+export const TRANSLATION_FETCH_SUCCESS = 'TRANSLATION_FETCH_SUCCESS';
+export const TRANSLATION_FETCH_FAILURE = 'TRANSLATION_FETCH_FAILURE';
+
+export const TRANSLATION_STORE         = 'TRANSLATION_STORE';
+export const TRANSLATION_STORE_SUCCESS = 'TRANSLATION_STORE_SUCCESS';
+export const TRANSLATION_STORE_FAILURE = 'TRANSLATION_STORE_FAILURE';
+
 
 // ---------------------------------------------------------------------------------------------------------------- I18N
 

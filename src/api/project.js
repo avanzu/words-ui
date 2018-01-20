@@ -6,7 +6,8 @@ Vue.use(vueResource);
 
 const urls = {
     index: Vue.resource(params.apiEndpoint + '/'),
-    completed: Vue.resource(params.apiEndpoint + '/{project}/stats{/locale}')
+    completed: Vue.resource(params.apiEndpoint + '/{project}/stats{/locale}'),
+    stats: Vue.resource(params.apiEndpoint + '/projects/{project}/stats')
 };
 
 
@@ -21,6 +22,14 @@ const fetchProjects = function(page, pageSize) {
         ;
 };
 
+const fetchStats = function(project) {
+    return urls.stats.get({project : project})
+        .then(response => {
+            if( response.status !== 200) return Promise.reject(response);
+            return { project: project, stats: response.body.result.resource };
+        });
+};
+
 const fetchCompletion = function(project, locale) {
 
     let stats = [];
@@ -33,5 +42,5 @@ const fetchCompletion = function(project, locale) {
 };
 
 export default  {
-    fetchProjects, fetchCompletion
+    fetchProjects, fetchCompletion, fetchStats
 }

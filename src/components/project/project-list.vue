@@ -38,7 +38,7 @@ export default {
             return this.$store.state.environmentStore.loading;
         },
         projects() {
-            return this.$store.state.environmentStore.projects;
+            return this.$store.state.projectStore.projects;
         }
     }
 

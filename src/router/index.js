@@ -11,6 +11,7 @@ const home     = r => require.ensure([], () => r(require('../components/profile/
 const account  = r => require.ensure([], () => r(require('../components/profile/account')), 'profile');
 const history  = r => require.ensure([], () => r(require('../components/profile/history')), 'profile');
 
+const translate = r => require.ensure([], () => r(require('../pages/translate')), 'translate');
 
 Vue.use(VueRouter);
 
@@ -86,6 +87,15 @@ const router = new VueRouter({
             component : projectEditor,
             meta      : {
                 requiresAuth : true
+            }
+        },
+        {
+            path: '/translate/:project/:catalogue/:locale',
+            name: 'translateCatalogue',
+            component: translate,
+            props: true,
+            meta: {
+                requiresAuth: true
             }
         }
 

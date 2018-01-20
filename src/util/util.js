@@ -55,6 +55,11 @@ export const processErrors = function (list) {
     });
     return errors;
 };
+
+export const lowerBound  = function (num, limit) {
+    return num >= limit ? num : limit
+};
+
 /*
 export default {
     labelize,

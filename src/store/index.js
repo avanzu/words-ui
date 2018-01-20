@@ -8,6 +8,7 @@ import debugStore from './module/debug';
 import environmentStore from './module/environment';
 import i18nStore from './module/i18n';
 import projectStore from './module/project';
+import translationStore from './module/translation';
 
 Vue.use(Vuex);
 
@@ -19,6 +20,7 @@ const modules = {
     'environmentStore' : environmentStore,
     'i18nStore'        : i18nStore,
     'debugStore'       : debugStore,
+    'translationStore' : translationStore,
     'projectStore'     : projectStore
 };
 

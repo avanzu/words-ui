@@ -98,11 +98,6 @@ const mutations = {
            state.links[name] = links[name];
         });
 
-        // store projects
-        config.projects.forEach((project) => {
-            state.projects[project.canonical] = project;
-        });
-
         state.languages  = config.languages;
         state.catalogues = config.catalogues;
 

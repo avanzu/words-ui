@@ -6,6 +6,32 @@
                 {{project.name}}
                 <i class="material-icons right">more_vert</i>
             </span>
+            <table>
+                <thead>
+                <tr>
+                    <th>catalogue</th>
+                    <th v-for="language in languages">{{language}}</th>
+                </tr>
+                </thead>
+                <tbody v-if="statsReady">
+                <tr v-for="catalogue in catalogues">
+                    <td>{{ catalogue }}</td>
+                    <td v-for="language in languages" >
+                    <project-cell :project="project.canonical" :language="language" :catalogue="catalogue"></project-cell>
+                    </td>
+                        <!-- <span v-for=" (key, value) in getStats(language, catalogue)">{{ key }}: {{ value}}</span> -->
+                </tr>
+                </tbody>
+            </table>
+            <!--
+            <div class="card-panel blue-grey darken-4" v-for="catalogue in catalogues">
+                {{ catalogue }}
+                <dl>
+                    <dt></dt>
+                </dl>
+            </div>
+            -->
+
             <!--
             <dl>
                 <dt class="col s4">{{$t('label.exercise.bodyPart')}}</dt>
@@ -61,17 +87,34 @@
     </div>
 </template>
 <script type="text/javascript">
+    import cell from './project-cell'
+
     export default {
+        components: {
+            'project-cell' : cell
+        },
         name: 'project-card',
         props: ['project'],
         mounted() {
             this.$store
-                .dispatch('loadCompletion', this.project.canonical);
+                .dispatch('loadStats', this.project.canonical);
 
         },
         computed: {
+            statsReady() {
+                return this.$store.state.projectStore.completions[this.project.canonical];
+            },
             isAuthenticated() {
                 return this.$store.getters.isAuthenticated;
+            },
+            languages() {
+                return this.$store.state.environmentStore.languages;
+            },
+            catalogues(){
+                return this.$store.state.environmentStore.catalogues;
+            },
+            stats() {
+                return this.$store.state.projectStore.completions[this.project.canonical];
             }
         }
     }
