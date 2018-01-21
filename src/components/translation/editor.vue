@@ -45,12 +45,22 @@
                 states: states
             }
         },
-        created(){
-            materialize();
-        },
         mounted() {
             materialize();
-            this.$refs.localeString.focus();
+        },
+        watch: {
+            record(oldValue, newValue) {
+                /*
+                 * the materialize script does not work properly when the input field's underlying value
+                 * changes from non empty string to empty string (e.g. when the record prop changes)
+                 * which leads to labels not being moved away hence floating above the input value.
+                 *
+                 * triggering blur and focus when the record changes seems to fix this
+                  */
+                if( oldValue.entityId === newValue.entityId) return;
+                this.$refs.localeString.blur();
+                this.$refs.localeString.focus();
+            }
         },
         methods: {
             handleSubmit() {

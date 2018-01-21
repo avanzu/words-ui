@@ -40,12 +40,17 @@
             }
         },
         created() {
+            // hook into the global event bus
             this.$eventHub.$on('alt-arrow-up-pressed', this.moveUp);
             this.$eventHub.$on('alt-arrow-down-pressed', this.moveDown);
             this.$eventHub.$on('alt-enter-pressed', this.selectFocusedItem);
+
+
             this.indexAndFocus();
         },
         beforeDestroy() {
+
+            // detach from the global event bus (avoid zombies)
             this.$eventHub.$off('alt-arrow-up-pressed', this.moveUp);
             this.$eventHub.$off('alt-arrow-down-pressed', this.moveDown);
             this.$eventHub.$off('alt-enter-pressed', this.selectFocusedItem);
@@ -53,10 +58,6 @@
         methods: {
             colorize(name) {
                 return colorMap[name] ? colorMap[name] : '';
-
-                if( name === 'needs-translation') return 'light-green-text text-lighten-3';
-                return '';
-
             },
             selectItem(index, item){
                 this.cursor  = index;
@@ -84,10 +85,6 @@
             moveDown(){
                 this.cursor++;
                 this.indexAndFocus();
-            },
-            activateItem(){
-                let item = this.items[this.cursor];
-                if( item ) this.$emit('item-selected', item);
             }
         },
         computed: {
