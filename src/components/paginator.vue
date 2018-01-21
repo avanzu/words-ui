@@ -23,16 +23,16 @@
                 <div class="col-s9">
                     <div class="right-align">
                         <ul class="pagination">
-                            <li :class="{ disabled : firstPage }">
-                                <a href="#" @click.prevent="pageChanged(1)" aria-label="Previous">
+                            <li :class="{ disabled : isFirstPage }">
+                                <a href="#" @click.prevent="pageChanged(1)" aria-label="Previous"  class="white-text">
                                     <i class="material-icons">chevron_left</i>
                                 </a>
                             </li>
                             <li v-for="n in paginationRange" :class="activePage(n)" class="waves-effect">
                                 <a href="#" @click.prevent="pageChanged(n)" class="white-text">{{ n }}</a>
                             </li>
-                            <li :class="{disabled: lastPage }">
-                                <a href="#" @click.prevent="pageChanged(lastPage)" aria-label="Next">
+                            <li :class="{disabled: isLastPage }">
+                                <a href="#" @click.prevent="pageChanged(lastPage)" aria-label="Next" class="white-text">
                                     <i class="material-icons">chevron_right</i>
                                 </a>
                             </li>
@@ -73,6 +73,14 @@
             }
 
         },
+        created() {
+            this.$eventHub.$on('alt-arrow-left-pressed', this.previousPage);
+            this.$eventHub.$on('alt-arrow-right-pressed', this.nextPage);
+        },
+        beforeDestroy(){
+            this.$eventHub.$off('alt-arrow-left-pressed', this.previousPage);
+            this.$eventHub.$off('alt-arrow-right-pressed', this.nextPage);
+        },
         methods: {
             activePage(pageNum) {
                 return this.currentPage === pageNum ? 'active' : ''
@@ -85,6 +93,14 @@
             },
             activeBracket(bracket) {
                 return this.itemsPerPage === bracket ? 'active' : '';
+            },
+            nextPage(){
+                if( this.isLastPage ) return;
+                this.pageChanged(this.currentPage +1);
+            },
+            previousPage(){
+                if( this.isFirstPage ) return;
+                this.pageChanged(this.currentPage -1);
             }
         },
         computed: {
@@ -100,8 +116,11 @@
                         : Math.floor(this.totalItems / this.itemsPerPage) + 1
                 }
             },
-            firstPage() {
+            isFirstPage() {
                 return (2 > this.currentPage);
+            },
+            isLastPage(){
+                return (this.currentPage === this.lastPage);
             },
             paginationRange() {
                 let start =

@@ -60,6 +60,8 @@ export const lowerBound  = function (num, limit) {
     return num >= limit ? num : limit
 };
 
+export const OUT_OF_BOUNDS = -1;
+
 /*
 export default {
     labelize,

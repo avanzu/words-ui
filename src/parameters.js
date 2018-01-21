@@ -11,6 +11,10 @@ let anonymous = {
     "username": "Anonymous",
     "anonymous": true
 };
+let pager = {
+    pageSize: 10,
+    firtPage: 1
+};
 
 module.exports = {
     AppName,
@@ -22,5 +26,6 @@ module.exports = {
     apiEndpoint,
     client_id: clientId,
     client_secret: clientSecret,
-    anonymous
+    anonymous,
+    pager
 };
