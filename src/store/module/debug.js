@@ -1,13 +1,14 @@
 /**
  * Created by avanzu on 16.02.17.
  */
-import * as types from "../mutation-types";
+import * as types from '../mutation-types';
+
 const enabled = (process.env.NODE_ENV !== 'production');
 
 const state = {
     enabled: enabled,
-    xDebug: false,
-    errors: {},
+    xDebug : false,
+    errors : {}
 
 };
 
@@ -23,7 +24,7 @@ const mutations = {
     }
 };
 
-if( enabled ) {
+if (enabled) {
     Object.keys(types).forEach((key) => {
         let val = types[key];
         if (val.indexOf('FAILURE') > -1) {
@@ -39,7 +40,7 @@ const actions = {
     xDebugEnable({commit}) {
         commit(types.XDEBUG_ENABLE);
     },
-    xDebugDisable({commit})  {
+    xDebugDisable({commit}) {
         commit(types.XDEBUG_DISABLE);
     },
     xDebugToggle({commit}) {
@@ -47,4 +48,4 @@ const actions = {
     }
 };
 
-export default { state, actions, mutations }
+export default {state, actions, mutations}

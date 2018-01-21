@@ -1,9 +1,9 @@
-import * as types from "../mutation-types";
-import api from '../../api/environment';
+import * as types from '../mutation-types';
+import api        from '../../api/environment';
 
-const state     = {
+const state = {
 
-    appName: 'Words!',
+    appName   : 'Words!',
     links     : {},
     schemas   : {},
     projects  : {},
@@ -16,7 +16,7 @@ const state     = {
 
 };
 
-const actions   = {
+const actions = {
     bootApplication({commit}) {
         commit(types.APPLICATION_BOOT);
         return api
@@ -74,7 +74,7 @@ const actions   = {
         }).then(() => {
             return state.catalogues;
         });
-    },
+    }
 
 };
 
@@ -82,28 +82,27 @@ const mutations = {
     [types.APPLICATION_BOOT](state) {
 
         state.loading = true;
-        state.booting = new Promise(function(resolve, reject){});
+        state.booting = new Promise(function (resolve, reject) {});
         state.error   = null;
     },
     [types.APPLICATION_BOOT_SUCCESS](state, config) {
-        let links  = config._links || (config._links = {});
+        let links = config._links || (config._links = {});
 
         // store HATEOAS Links
         Object.keys(links).forEach((name) => {
-           if( name.indexOf('schema:') > -1 ) {
-               state.schemas[name] = links[name];
-               return;
-           }
+            if (name.indexOf('schema:') > -1) {
+                state.schemas[name] = links[name];
+                return;
+            }
 
-           state.links[name] = links[name];
+            state.links[name] = links[name];
         });
 
         state.languages  = config.languages;
         state.catalogues = config.catalogues;
-
-        state.booting = Promise.resolve(true);
-        state.loading = false;
-        state.booted  = true;
+        state.booting    = Promise.resolve(true);
+        state.loading    = false;
+        state.booted     = true;
 
     },
     [types.APPLICATION_BOOT_FAILURE](state, reason) {
@@ -112,8 +111,8 @@ const mutations = {
         state.booted  = false;
         state.loading = false;
         state.error   = reason;
-    },
+    }
 
 };
 
-export default { state, actions, mutations }
+export default {state, actions, mutations}

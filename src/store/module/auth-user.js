@@ -1,11 +1,11 @@
 /**
  * Created by avanzu on 03.02.17.
  */
-import * as types from "../mutation-types";
-import header from "../../util/auth-header";
-import api from "../../api/auth-user";
-import params from '../../parameters';
-import {copyObject} from "../../util/util";
+import * as types   from '../mutation-types';
+import header       from '../../util/auth-header';
+import api          from '../../api/auth-user';
+import params       from '../../parameters';
+import {copyObject} from '../../util/util';
 
 const sessionAuthToken  = JSON.parse(window.sessionStorage.getItem('authToken'));
 const sessionProfile    = JSON.parse(window.sessionStorage.getItem('profile'));

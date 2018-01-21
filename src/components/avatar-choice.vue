@@ -1,9 +1,10 @@
 <template>
     <section>
         <div class="row" v-if="changing">
-            <div class="col s2" v-for="avatar in avatars" >
+            <div class="col s2" v-for="avatar in avatars">
                 <a href="#" @click.prevent="selectAvatar(avatar)">
-                    <div class="card-panel teal hoverable" :class="[isSelected(avatar) ? 'z-depth-3' : 'darken-3 z-depth-1']">
+                    <div class="card-panel teal hoverable"
+                         :class="[isSelected(avatar) ? 'z-depth-3' : 'darken-3 z-depth-1']">
                         <img :src=" avatar | avatarPath ">
                     </div>
                 </a>
@@ -26,11 +27,12 @@
 </style>
 <script type="text/javascript">
     import {list} from '../util/avatars';
-    export  default {
+
+    export default {
         props: ['value'],
         data() {
             return {
-                avatars: [],
+                avatars : [],
                 changing: false
             }
         },
@@ -40,7 +42,7 @@
         },
         methods: {
             toggleChanging() {
-                this.changing = ! this.changing;
+                this.changing = !this.changing;
             },
             isSelected(value) {
                 return (this.value === value);

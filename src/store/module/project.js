@@ -1,19 +1,19 @@
-import * as types from "../mutation-types";
-import api from '../../api/project';
-import Vue from 'vue';
+import * as types from '../mutation-types';
+import api        from '../../api/project';
+import Vue        from 'vue';
 
-const state = {
-    projects: {},
-    activeProject: null,
-    projectsLoaded: false,
-    pages: 0,
-    currentPage: 0,
-    pageSize: 10,
-    completions: {},
+const state     = {
+    projects         : {},
+    activeProject    : null,
+    projectsLoaded   : false,
+    pages            : 0,
+    currentPage      : 0,
+    pageSize         : 10,
+    completions      : {},
     completionsLoaded: {}
 
 };
-const actions = {
+const actions   = {
     loadProjects({commit, state}, page) {
         page = page || 1;
         commit(types.PROJECTS_FETCH);
@@ -50,7 +50,8 @@ const actions = {
                     calls.push(api.fetchCompletion(project, language))
                 });
                 return Promise.all(calls);
-            }).then((stats) => {
+            })
+            .then((stats) => {
                 commit(types.PROJECTS_FETCH_SUCCESS, stats);
                 return state.completions;
             })
@@ -66,23 +67,23 @@ const actions = {
             if (!state.completions[args.project]) return reject(false);
             return resolve(state.completions[args.project])
         })
-        .then(completions => {
-            let match = completions.find((record) => {
-                if( ! (record.catalogue === args.catalogue)) {
-                    return false;
-                }
-                return (record.language === args.language);
+            .then(completions => {
+                let match = completions.find((record) => {
+                    if (!(record.catalogue === args.catalogue)) {
+                        return false;
+                    }
+                    return (record.language === args.language);
 
-            });
+                });
 
-            if( ! match ) return Promise.reject(match);
-            return match;
-        })
+                if (!match) return Promise.reject(match);
+                return match;
+            })
 
-        .catch(function() {
-            return { total: 0, translated: 0 };
-        })
-        ;
+            .catch(function () {
+                return {total: 0, translated: 0};
+            })
+            ;
 
     }
 };
@@ -91,25 +92,25 @@ const mutations = {
         state.projectsLoaded = false;
     },
     [types.PROJECTS_FETCH_SUCCESS](state, pager) {
-        state.projects = pager.items;
-        state.pages = pager.pagesTotal;
-        state.page = pager.page;
-        state.pageSize = pager.pageSize;
+        state.projects    = pager.items;
+        state.pages       = pager.pagesTotal;
+        state.page        = pager.page;
+        state.pageSize    = pager.pageSize;
         state.completions = {};
         pager.items.forEach(project => {
-            vue.set(state.completions, project.canonical,false);
+            Vue.set(state.completions, project.canonical, false);
         });
         state.projectsLoaded = true;
     },
     [types.PROJECTS_FETCH_FAILURE](state, reason) {
         state.projectsLoaded = true;
-        state.reason = reason;
+        state.reason         = reason;
     },
     [types.PROJECT_STATS_FETCH](state, project) {
-        Vue.set(state.completions, project, false); //state.completions[project]  = false;
+        Vue.set(state.completions, project, false);
     },
     [types.PROJECT_STATS_FETCH_SUCCESS](state, {project, stats}) {
-        Vue.set(state.completions, stats.project,  stats.stats);
+        Vue.set(state.completions, stats.project, stats.stats);
     },
     [types.PROJECT_STATS_FETCH_FAILURE](state, {project, reason}) {
         state.reason = reason;
@@ -117,7 +118,7 @@ const mutations = {
     [types.APPLICATION_BOOT_SUCCESS](state, env) {
         // store projects
         env.projects.forEach((project) => {
-            Vue.set(state.projects, project.canonical,  project);
+            Vue.set(state.projects, project.canonical, project);
             Vue.set(state.completions, project.canonical, false);
         });
 
@@ -125,10 +126,10 @@ const mutations = {
     }
 
 };
-const getters = {
+const getters   = {
     hasMorePages() {
         return (state.currentPage < state.pages);
-    },
+    }
 
 };
 

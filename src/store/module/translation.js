@@ -1,17 +1,17 @@
-import * as types from "../mutation-types";
-import Vue from 'vue';
-import api from '../../api/translate';
-import params from '../../parameters';
-import {copyObject, OUT_OF_BOUNDS} from "../../util/util";
+import * as types                  from '../mutation-types';
+import Vue                         from 'vue';
+import api                         from '../../api/translate';
+import params                      from '../../parameters';
+import {copyObject, OUT_OF_BOUNDS} from '../../util/util';
 
-const state = {
-    pages: 0,
-    page: 0,
+const state   = {
+    pages   : 0,
+    page    : 0,
     pageSize: params.pager.pageSize,
-    items: [],
-    loading: false,
-    reason : null,
-    current: null
+    items   : [],
+    loading : false,
+    reason  : null,
+    current : null
 };
 const actions = {
     /**
@@ -45,7 +45,7 @@ const actions = {
      * @param translation
      * @return {Promise<any>}
      */
-    selectTranslation({commit}, translation){
+    selectTranslation({commit}, translation) {
         return new Promise((resolve, reject) => {
             commit(types.TRANSLATION_SELECT, translation);
             resolve(copyObject(translation));
@@ -59,7 +59,7 @@ const actions = {
         return api
             .putTranslation({project, language, catalogue, transUnit})
             .then(translation => {
-               commit(types.TRANSLATION_STORE_SUCCESS, translation);
+                commit(types.TRANSLATION_STORE_SUCCESS, translation);
             })
             .catch(reason => {
                 commit(types.TRANSLATION_STORE_FAILURE, reason);
@@ -83,19 +83,19 @@ const mutations = {
 
     },
     [types.TRANSLATION_FETCH_FAILURE](state, reason) {
-        state.reason = reason;
+        state.reason  = reason;
         state.loading = false;
     },
-    [types.TRANSLATION_SELECT](state, translation){
+    [types.TRANSLATION_SELECT](state, translation) {
         state.current = translation;
     },
     [types.TRANSLATION_STORE](state) {},
-    [types.TRANSLATION_STORE_SUCCESS](state, translation){
+    [types.TRANSLATION_STORE_SUCCESS](state, translation) {
 
-        let index = state.items.findIndex( item =>  (item.entityId === translation.entityId) );
+        let index     = state.items.findIndex(item => (item.entityId === translation.entityId));
         state.current = null;
 
-        if( OUT_OF_BOUNDS === index) {
+        if (OUT_OF_BOUNDS === index) {
             state.items.push(translation);
             return;
         }
@@ -104,12 +104,10 @@ const mutations = {
 
 
     },
-    [types.TRANSLATION_FETCH_FAILURE](state, reason){}
+    [types.TRANSLATION_FETCH_FAILURE](state, reason) {}
 
 };
 
-const getters = {
+const getters = {};
 
-};
-
-export default { state, actions, mutations, getters }
+export default {state, actions, mutations, getters}

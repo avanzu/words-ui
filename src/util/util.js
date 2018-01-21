@@ -11,7 +11,7 @@ export const OUT_OF_BOUNDS = -1;
 export const labelize = function (items, prefixLabel) {
     let _ = {};
     items.forEach(function (value) {
-        _[value] = {label : prefixLabel + value};
+        _[value] = {label: prefixLabel + value};
     });
 
     return _;
@@ -22,9 +22,9 @@ export const labelize = function (items, prefixLabel) {
  * @param arr
  * @return {Array}
  */
-const copyArray = function(arr)  {
+const copyArray = function (arr) {
     let arrayResult = [];
-    arr.forEach( el =>  arrayResult.push(cloneObjOrArray(el)) );
+    arr.forEach(el => arrayResult.push(cloneObjOrArray(el)));
     return arrayResult;
 };
 
@@ -33,10 +33,10 @@ const copyArray = function(arr)  {
  * @param obj
  * @return {{}}
  */
-const copyObj = function (obj)  {
+const copyObj = function (obj) {
     let objResult = {};
     Object.keys(obj).forEach(key => {
-        if( obj.hasOwnProperty(key)) {
+        if (obj.hasOwnProperty(key)) {
             objResult[key] = cloneObjOrArray(obj[key]);
         }
     });
@@ -50,9 +50,9 @@ const copyObj = function (obj)  {
  * @param el
  * @return {*}
  */
-const cloneObjOrArray = function(el) {
+const cloneObjOrArray = function (el) {
     if (Array.isArray(el)) return copyArray(el);
-    if (typeof el === 'object')  return copyObj(el);
+    if (typeof el === 'object') return copyObj(el);
     return el;
 };
 
@@ -68,7 +68,7 @@ const cloneObjOrArray = function(el) {
  * @param objOrArray
  * @return {*}
  */
-export const copyObject = function(objOrArray) {
+export const copyObject = function (objOrArray) {
     return cloneObjOrArray(objOrArray);
 };
 
@@ -80,7 +80,7 @@ export const copyObject = function(objOrArray) {
 export const materialize = function () {
     let ref;
 
-    if (typeof Materialize !== "undefined" && Materialize !== null) {
+    if (typeof Materialize !== 'undefined' && Materialize !== null) {
         if ((ref = Materialize.updateTextFields) != null) {
             ref.call();
         }
@@ -92,10 +92,10 @@ export const materialize = function () {
  *
  * @param message
  */
-export const toast = function(message) {
+export const toast = function (message) {
     let ref;
 
-    if (typeof Materialize !== "undefined" && Materialize !== null) {
+    if (typeof Materialize !== 'undefined' && Materialize !== null) {
         if ((ref = Materialize.toast) != null) {
             ref.call(Materialize, message, 4000);
         }
@@ -104,7 +104,7 @@ export const toast = function(message) {
 
 export const processErrors = function (list) {
     let errors = {};
-    if(! (list instanceof Array)) {
+    if (!(list instanceof Array)) {
         return [{'global': list}];
     }
 
@@ -116,14 +116,12 @@ export const processErrors = function (list) {
 };
 
 
-
-
 /*
-export default {
-    labelize,
-    copyObject,
-    materialize,
-    toast,
-    processErrors
-}
-*/
+ export default {
+ labelize,
+ copyObject,
+ materialize,
+ toast,
+ processErrors
+ }
+ */
