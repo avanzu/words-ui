@@ -23,25 +23,24 @@
     </section>
 </template>
 <script type="text/javascript">
-import projectCard from './project-card'
+    import projectCard from './project-card'
+    import {mapState}  from 'vuex';
 
-export default {
-    name: 'project-list',
-    components: {
-        'project-card' : projectCard
-    },
-    created() {
-        this.$store.dispatch('getProjects');
-    },
-    computed: {
-        loading() {
-            return this.$store.state.environmentStore.loading;
+    export default {
+        name      : 'project-list',
+        components: {
+            'project-card': projectCard
         },
-        projects() {
-            return this.$store.state.projectStore.projects;
+        created() {
+            this.$store.dispatch('getProjects');
+        },
+        computed  : {
+            ...mapState({
+                            loading : state => state.environmentStore.loading,
+                            projects: state => state.projectStore.projects
+                        })
         }
-    }
 
-}
+    }
 
 </script>

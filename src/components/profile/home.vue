@@ -59,18 +59,18 @@
                                 <input type="text" v-model="editable.lastName">
                                 <label>{{$t('label.profile.lastName')}}</label>
                             </div>
-                            </div>
+                        </div>
                         <div class="col s6">
                             <avatar-choice v-model="editable.avatar"></avatar-choice>
                         </div>
-                        </div>
                     </div>
-                    <div class="card-action">
-                        <a @click.prevent="handleSaveProfile" class="btn">{{$t('button.save')}}</a>
-                    </div>
+                </div>
+                <div class="card-action">
+                    <a @click.prevent="handleSaveProfile" class="btn">{{$t('button.save')}}</a>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
 </template>
@@ -84,29 +84,29 @@
 
 </style>
 <script type="text/javascript">
-    import {materialize, processErrors}   from '../../util/util';
-    import formErrors from '../form-errors'
-    import avatarChoice from '../avatar-choice'
+    import {materialize, processErrors} from '../../util/util';
+    import formErrors                   from '../form-errors'
+    import avatarChoice                 from '../avatar-choice'
 
     export default {
-        components : {
-            'form-errors'   : formErrors,
-            'avatar-choice' : avatarChoice
+        components: {
+            'form-errors'  : formErrors,
+            'avatar-choice': avatarChoice
         },
         data() {
             return {
-                hasErrors : false,
-                errors    : {},
-                loading   : false,
-                editable  : {}
+                hasErrors: false,
+                errors   : {},
+                loading  : false,
+                editable : {}
             }
         },
-        created(){
+        created() {
             materialize();
             this.createEditable();
         },
-        updated    : materialize,
-        computed   : {
+        updated   : materialize,
+        computed  : {
             profile() {
                 return this.$store.state.authUserStore.profile;
             },
@@ -114,21 +114,17 @@
                 return this.$store.state.authUserStore.profile;
             }
         },
-        methods    : {
+        methods   : {
             createEditable() {
                 this.$store
                     .dispatch('getEditableProfile')
-                    .then(profile => {
-                        this.editable = profile;
-                    });
+                    .then(profile => this.editable = profile);
             },
 
             handleSaveProfile() {
                 this.$store
                     .dispatch('putProfile', this.editable)
-                    .then((success) => {
-                        this.$root.$emit('toast', 'message.success.profileSaved');
-                    })
+                    .then(() => this.$root.$emit('toast', 'message.success.profileSaved'))
                     .catch((reason) => {
                         this.hasErrors = true;
                         this.errors    = processErrors(reason);

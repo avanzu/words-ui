@@ -18,6 +18,7 @@ Vue.http.interceptors.push((request, next) => {
     let authToken = store.state.authUserStore.authToken;
 
     appendXdebugParam(request);
+
     // make sure, symfony understands that it's AJAX
     request.headers.set('X-Requested-With', 'XMLHttpRequest');
 

@@ -74,10 +74,12 @@
 
         },
         created() {
+            // enable pagination by keyboard shortcut
             this.$eventHub.$on('alt-arrow-left-pressed', this.previousPage);
             this.$eventHub.$on('alt-arrow-right-pressed', this.nextPage);
         },
         beforeDestroy(){
+            //
             this.$eventHub.$off('alt-arrow-left-pressed', this.previousPage);
             this.$eventHub.$off('alt-arrow-right-pressed', this.nextPage);
         },
@@ -108,13 +110,16 @@
                 return [10, 20, 50, 100];
             },
             lastPage() {
-                if (this.totalPages) {
-                    return this.totalPages
-                } else {
-                    return this.totalItems % this.itemsPerPage === 0
-                        ? this.totalItems / this.itemsPerPage
-                        : Math.floor(this.totalItems / this.itemsPerPage) + 1
+                // we know the total pages. There's no need to calculate
+                if (this.totalPages) { return this.totalPages }
+
+                // total items spread perfectly over items per page
+                if (this.totalItems % this.itemsPerPage === 0) {
+                    return (this.totalItems / this.itemsPerPage);
                 }
+                // we have a spillover, add one page to display the last items not fitting on the "regular" last page
+                return  Math.floor(this.totalItems / this.itemsPerPage) + 1
+
             },
             isFirstPage() {
                 return (2 > this.currentPage);
@@ -122,15 +127,24 @@
             isLastPage(){
                 return (this.currentPage === this.lastPage);
             },
+
+            rangeStart() {
+                // avoid pointing out of range beyond the first page
+                if (this.currentPage - this.visiblePages / 2 <= 0) {
+                    return 1;
+                }
+
+                // avoid pointing out of range beyond the last page
+                if (this.currentPage + this.visiblePages / 2 > this.lastPage) {
+                    return Math.max(this.lastPage - this.visiblePages + 1, 1);
+                }
+
+
+                return  Math.ceil(this.currentPage - this.visiblePages / 2);
+
+            },
             paginationRange() {
-                let start =
-                    this.currentPage - this.visiblePages / 2 <= 0
-                        ? 1 : this.currentPage + this.visiblePages / 2 > this.lastPage
-                        ? lowerBound(this.lastPage - this.visiblePages + 1, 1)
-                        : Math.ceil(this.currentPage - this.visiblePages / 2);
-
-                let range = [];
-
+                let start = this.rangeStart, range = [];
                 for (let i = 0; i < this.visiblePages && i < this.lastPage; i++) {
                     range.push(start + i)
                 }

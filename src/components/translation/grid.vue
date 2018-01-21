@@ -59,13 +59,31 @@
             colorize(name) {
                 return colorMap[name] ? colorMap[name] : '';
             },
+            /**
+             * normalizes keyboard and mouse input and emits 'item-selected'
+             * calling this method will harmonize the cursor, index and focus to the given item and index
+             *
+             * @param index
+             * @param item
+             */
             selectItem(index, item){
                 this.cursor  = index;
                 this.index   = index;
                 this.focused = item;
                 this.$emit('item-selected', this.focused);
             },
+            /**
+             * Emits the 'item-selected' event unless the focused and active items are the same.
+             * in order to be "active", the item in question must have been activated by a store action.
+             *
+             * hence, we should not activate the item again since this might potentially cause data loss in other components.
+             *
+             * @see selectItem
+             */
             selectFocusedItem(){
+                //
+                //
+                //
                 if( this.focused === this.active) return;
                 if( this.focused ) this.selectItem(this.index, this.focused);
             },
@@ -74,6 +92,9 @@
                 if( ! this.active ) return '';
                 return (item.id === this.active.id) ? 'active' : '';
             },
+            /**
+             * Updates index and focus based on the current cursor value and the given pagesize
+             */
             indexAndFocus() {
                 this.index   = Math.abs(this.cursor % this.pageSize);
                 this.focused = this.items[this.index];
