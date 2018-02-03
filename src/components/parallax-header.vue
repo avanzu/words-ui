@@ -23,7 +23,11 @@
 <script type="text/javascript">
     import config from '../parameters';
     export default {
+        name: 'parallax-header',
         mounted() {
+            document.title = this.header;
+        },
+        updated() {
             document.title = this.header;
         },
         props : {

@@ -13,8 +13,7 @@
                         <div class="progress" v-if="loading">
                             <div class="indeterminate"></div>
                         </div>
-                        <trans-grid :items="items" :page="page" :pages="pages" :pageSize="pageSize" :active="current"
-                                    class="trans-grid" @item-selected="translationSelected"></trans-grid>
+                        <trans-grid :items="items" :page="page" :pages="pages" :pageSize="pageSize" :active="current" class="trans-grid" @item-selected="translationSelected"></trans-grid>
                     </div>
                     <div class="card-action">
                         <trans-edit v-if="current" :record="editable" @input="updateTranslation"></trans-edit>
@@ -23,8 +22,7 @@
             </div>
         </div>
 
-        <pagination :current-page="page" :total-pages="pages" :items-per-page="pageSize" @page-changed="paginate"
-                    @pagesize-changed="paginateBlock"></pagination>
+        <pagination :current-page="page" :total-pages="pages" :items-per-page="pageSize" @page-changed="paginate" @pagesize-changed="paginateBlock"></pagination>
 
 
     </section>
@@ -117,7 +115,11 @@
              * @param item
              */
             translationSelected(item) {
-                this.$store.dispatch('selectTranslation', item).then(detachedCopy => { this.editable = detachedCopy; });
+                this.$store
+                    .dispatch('selectTranslation', item)
+                    .then(detachedCopy => {
+                        this.editable = detachedCopy;
+                    });
             },
             /**
              * Resets the "selected" translation to null

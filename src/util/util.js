@@ -52,7 +52,7 @@ const copyObj = function (obj) {
  */
 const cloneObjOrArray = function (el) {
     if (Array.isArray(el)) return copyArray(el);
-    if (typeof el === 'object') return copyObj(el);
+    if ( el instanceof Object ) return copyObj(el);
     return el;
 };
 

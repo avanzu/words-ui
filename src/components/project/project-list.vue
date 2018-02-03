@@ -1,18 +1,7 @@
 <template>
     <section class="project-list">
-        <div v-if="loading" class="card-panel blue-grey darken-4 white-text center-align z-depth-3">
-            <div class="row">
-                <div class="col s12">
-                    {{$t('message.loading')}}
-                    <br>
-                    <br>
-                    <div class="progress">
-                        <div class="indeterminate"></div>
-                    </div>
-                </div>
+        <indicator v-if="loading" :message="'lade projekte...'"></indicator>
 
-            </div>
-        </div>
         <div class="row">
             <div v-for="project in projects" class="col m6 s12">
                 <project-card :project="project"></project-card>

@@ -7,7 +7,9 @@ Vue.use(vueResource);
 const urls = {
     index    : Vue.resource(params.apiEndpoint + '/'),
     completed: Vue.resource(params.apiEndpoint + '/{project}/stats{/locale}'),
-    stats    : Vue.resource(params.apiEndpoint + '/projects/{project}/stats')
+    stats    : Vue.resource(params.apiEndpoint + '/projects/{project}/stats'),
+    update   : Vue.resource(params.apiEndpoint + '/projects/{project}/update'),
+    create   : Vue.resource(params.apiEndpoint + '/projects/create')
 };
 
 
@@ -52,6 +54,26 @@ const fetchCompletion = function (project, locale) {
         })
 };
 
+const updateProject = function(project) {
+    return urls
+        .update
+        .update({ project: project.canonical }, {payload: project})
+        .then(response => {
+            if( response.status >= 400) return Promise.reject(response);
+            return response.body.result;
+        });
+};
+
+const createProject = function(project) {
+    return urls
+        .create
+        .save({}, {payload: project})
+        .then( response => {
+            if( response.status >= 400 ) return Promise.reject(response);
+            return response.body.result;
+        })
+};
+
 export default {
-    fetchProjects, fetchCompletion, fetchStats
+    fetchProjects, fetchCompletion, fetchStats, updateProject, createProject
 }

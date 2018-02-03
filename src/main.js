@@ -9,10 +9,12 @@ import de      from './i18n/de'
 import {toast} from './util/util'
 import './util/http-interceptors'
 import navbar  from './components/navbar'
+import indicator from './components/indicator'
 import {path}  from './util/avatars'
 import keys    from './util/key-code-map'
 
 Vue.component('navbar', navbar);
+Vue.component('indicator', indicator);
 Vue.filter('avatarPath', path);
 
 Vue.use(VueI18n);

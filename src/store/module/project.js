@@ -1,6 +1,7 @@
-import * as types from '../mutation-types';
-import api        from '../../api/project';
-import Vue        from 'vue';
+import * as types   from '../mutation-types';
+import api          from '../../api/project';
+import Vue          from 'vue';
+import {copyObject} from '../../util/util';
 
 const state     = {
     projects         : {},
@@ -10,7 +11,8 @@ const state     = {
     currentPage      : 0,
     pageSize         : 10,
     completions      : {},
-    completionsLoaded: {}
+    completionsLoaded: {},
+    processing       : false,
 
 };
 const actions   = {
@@ -21,7 +23,7 @@ const actions   = {
             .fetchProjects(page, state.pageSize)
             .then(projects => {
                 commit(types.PROJECTS_FETCH_SUCCESS, projects);
-                return projects;
+                return state.projects;
             })
             .catch(reason => {
                 commit(types.PROJECTS_FETCH_FAILURE, reason);
@@ -59,6 +61,69 @@ const actions   = {
                 commit(types.PROJECTS_FETCH_FAILURE, reason);
                 return Promise.reject(reason);
             });
+
+    },
+    activateProject({state, dispatch, commit}, project) {
+
+        return new Promise( (resolve)  => {
+            if( false === project ) {
+                return resolve(state.projects);
+            }
+            if( state.projects[project]) {
+                return resolve(state.projects);
+            }
+            return dispatch('loadProjects');
+
+        })
+        .then((projects) => {
+
+            if( project === false ) {
+                return project;
+            }
+
+            if (projects[project]) {
+                return projects[project];
+            }
+
+            return Promise.reject('Unable to find project');
+        })
+        .then((project) => {
+            commit(types.PROJECT_ACTIVATE, project)
+        })
+            ;
+    },
+    updateProject({state, dispatch, commit}, project) {
+        commit(types.PROJECT_SAVE, project);
+        return api
+            .updateProject(project)
+            .then(project => {
+                commit(types.PROJECT_SAVE_SUCCESS, project);
+                return project;
+            })
+            .then(project => {
+                commit(types.PROJECT_ACTIVATE, project);
+                return project;
+            })
+            .catch(reason => {
+                commit(types.PROJECT_SAVE_FAILURE, reason);
+            })
+            ;
+    },
+    createProject({state, dispatch, commit}, project) {
+        commit(types.PROJECT_SAVE);
+        return api
+            .createProject(project)
+            .then(project => {
+                commit(types.PROJECT_SAVE_SUCCESS, project);
+                return project;
+            })
+            .then(project => {
+                commit(types.PROJECT_ACTIVATE, project);
+                return project;
+            })
+            .catch(reason => {
+                commit(types.PROJECT_SAVE_FAILURE, reason);
+            })
 
     },
     getStats({state, dispatch}, args) {
@@ -123,6 +188,19 @@ const mutations = {
         });
 
         state.projectsLoaded = true;
+    },
+    [types.PROJECT_ACTIVATE](state, project){
+        state.activeProject = project;
+    },
+    [types.PROJECT_SAVE](state) {
+        state.processing = true;
+    },
+    [types.PROJECT_SAVE_SUCCESS](state, project) {
+        Vue.set(state.projects, project.canonical, project);
+        state.processing = false;
+    },
+    [types.PROJECT_SAVE_FAILURE](state, reason){
+        state.processing = false;
     }
 
 };

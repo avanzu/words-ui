@@ -24,7 +24,7 @@
                 </div>
                 </div>
             </div>
-            <div class="co s12">
+            <div class="col s12">
                 <button class="btn waves-effect waves-light right" @click="handleSubmit">Submit
                     <i class="material-icons right">send</i>
                 </button>

@@ -1,5 +1,5 @@
 <template>
-    <div class="page-content">
+    <div class="page-content container-fluid">
         <slot></slot>
     </div>
 </template>

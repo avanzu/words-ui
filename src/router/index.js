@@ -4,13 +4,12 @@ import store     from '../store';
 import loginPage from "../pages/login";
 import indexPage from "../pages/index";
 import signUpPage from '../pages/sign-up';
-import projectEditor from '../components/project/project-editor';
 
-const profile  = r => require.ensure([], () => r(require('../pages/profile.vue')), 'profile');
-const home     = r => require.ensure([], () => r(require('../components/profile/home')), 'profile');
-const account  = r => require.ensure([], () => r(require('../components/profile/account')), 'profile');
-const history  = r => require.ensure([], () => r(require('../components/profile/history')), 'profile');
+import profileRoutes from './profile';
+import projectRoutes from './project';
 
+
+// --------------------------------------------------------------------------------------------------------- TRANSLATION
 const translate = r => require.ensure([], () => r(require('../pages/translate')), 'translate');
 
 Vue.use(VueRouter);
@@ -38,57 +37,6 @@ const router = new VueRouter({
                 requiresAuth : false
             }
         },
-
-        {
-            path      : '/profile',
-            // name      : 'profile',
-            component : profile,
-            meta      : {
-                requiresAuth : true
-            },
-            children: [
-                {
-                    path      : '',
-                    name      : 'profileHome',
-                    component : home,
-                    meta      : {
-                        requiresAuth : true
-                    }
-                },
-                {
-                    path      : '/profile/change-account',
-                    name      : 'changeAccount',
-                    component : account,
-                    meta      : {
-                        requiresAuth : true
-                    }
-                },
-                {
-                    path      : '/profile/history',
-                    name      : 'profileHistory',
-                    component : history,
-                    meta      : {
-                        requiresAuth : true
-                    }
-                },
-            ]
-        },
-        {
-            path      : '/project/create',
-            name      : 'createProject',
-            component : projectEditor,
-            meta      : {
-                requiresAuth : true
-            }
-        },
-        {
-            path      : '/project/update/:slug',
-            name      : 'updateProject',
-            component : projectEditor,
-            meta      : {
-                requiresAuth : true
-            }
-        },
         {
             path: '/translate/:project/:catalogue/:locale',
             name: 'translateCatalogue',
@@ -101,6 +49,9 @@ const router = new VueRouter({
 
     ]
 });
+
+router.addRoutes(profileRoutes);
+router.addRoutes(projectRoutes);
 
 router.beforeEach((to, from, next) => {
     if (!to.meta.requiresAuth) {
@@ -117,6 +68,6 @@ router.beforeEach((to, from, next) => {
 });
 
 
-store.dispatch('addMenuItem', { label: 'Dashboard', name: 'index', icon: 'fa-dashboard'} );
+// store.dispatch('addMenuItem', { label: 'Dashboard', name: 'index', icon: 'fa-dashboard'} );
 
 export default router;

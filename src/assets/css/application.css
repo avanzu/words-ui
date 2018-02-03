@@ -2,10 +2,6 @@
     text-shadow: 2px 2px .25rem #263238
 }
 
-#workout-timer {
-    margin-top: -70px
-}
-
 #sign-up-view {
     margin-top: -70px
 }
@@ -14,23 +10,8 @@
     color: hsla(0, 0%, 100%, .26) !important
 }
 
-.fitness-rating {
-    width: 19%;
-    float: left;
-    margin-right: 1%
-}
-
-.fitness-rating.darken-4 img {
-    opacity: .5
-}
-
 body {
     background-color: red
-}
-
-.exercise-card .card-content {
-    height: 260px;
-    overflow: hidden
 }
 
 hr.divider {
@@ -45,59 +26,6 @@ hr.divider {
 .transition {
     -webkit-transition: width .5s;
     transition: width .5s
-}
-
-#exercise-description {
-    height: 10rem
-}
-
-#exercise-form {
-    margin-top: -70px
-}
-
-.exercise-thumb.center, .inline-button {
-    margin-left: auto;
-    margin-right: auto;
-    display: block
-}
-
-.exercise-image.card-image {
-    position: relative
-}
-
-.exercise-image.card-image figure {
-    height: 360px;
-    background-position: 50%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: 0;
-    padding: 0
-}
-
-.exercise-image.card-image figure.svg-image img {
-    max-height: 360px;
-    padding: 2em
-}
-
-.exercise-image.card-image figure.bitmap-image img {
-    display: none
-}
-
-.exercise-image.card-image .fixed-action-btn {
-    position: absolute;
-    display: inline-block;
-    right: 1em
-}
-
-.exercise-image.card-image .play-btn {
-    position: absolute;
-    right: 1em;
-    bottom: 1em
-}
-
-.exercise-stack-item .card-image span.card-title {
-    margin-bottom: 0;
-    padding: 5px 15px
 }
 
 .col.s6 .large [data-progress], .col.s12 .large [data-progress] {

@@ -17,7 +17,13 @@ const state = {
 };
 
 const actions = {
-    bootApplication({commit}) {
+    bootApplication({commit, state}) {
+
+        // do not boot multiple times...
+        if( state.booted ) {
+            return Promise.resolve(state);
+        }
+
         commit(types.APPLICATION_BOOT);
         return api
             .bootApplication()
@@ -84,6 +90,7 @@ const mutations = {
         state.loading = true;
         state.booting = new Promise(function (resolve, reject) {});
         state.error   = null;
+        state.booted  = false;
     },
     [types.APPLICATION_BOOT_SUCCESS](state, config) {
         let links = config._links || (config._links = {});

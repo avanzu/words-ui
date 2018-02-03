@@ -43,6 +43,12 @@ export const PROJECT_STATS_FETCH    = 'PROJECT_STATS_FETCH';
 export const PROJECT_STATS_FETCH_SUCCESS = 'PROJECT_STATS_FETCH_SUCCESS';
 export const PROJECT_STATS_FETCH_FAILURE = 'PROJECT_STATS_FETCH_FAILURE';
 
+export const PROJECT_ACTIVATE    = 'PROJECT_ACTIVATE';
+
+export const PROJECT_SAVE         = 'PROJECT_SAVE';
+export const PROJECT_SAVE_SUCCESS = 'PROJECT_SAVE_SUCCESS';
+export const PROJECT_SAVE_FAILURE = 'PROJECT_SAVE_FAILURE';
+
 // -----------------------------------------------------------------------------------------------------------TRANS-UNIT
 
 
