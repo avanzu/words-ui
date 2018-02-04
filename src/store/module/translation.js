@@ -25,12 +25,14 @@ const actions = {
      * @param {int} $1.pageSize
      * @return {*|Promise<T>}
      */
-    loadTranslations({state, commit}, {project, catalogue, language, page, pageSize}) {
+    loadTranslations({state, commit, dispatch}, {project, catalogue, language, page, pageSize}) {
 
-        commit(types.TRANSLATION_FETCH);
+        return dispatch('activateProject', project)
+            .then(() => {
 
-        return api
-            .fetchTranslations({project, language, catalogue}, {page, pageSize})
+                commit(types.TRANSLATION_FETCH);
+                return api.fetchTranslations({project, language, catalogue}, {page, pageSize});
+            })
             .then(result => {
                 commit(types.TRANSLATION_FETCH_SUCCESS, result);
             })

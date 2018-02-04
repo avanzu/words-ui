@@ -42,7 +42,7 @@
 </template>
 <script type="text/javascript">
     import cell from './project-cell'
-
+    import { mapState } from 'vuex'
     export default {
         components: {
             'project-cell' : cell
@@ -50,26 +50,25 @@
         name: 'project-card',
         props: ['project'],
         mounted() {
-            this.$store
-                .dispatch('loadStats', this.project.canonical);
-
+            this.$store.dispatch('loadStats', this.project.canonical);
         },
         computed: {
             statsReady() {
-                return this.$store.state.projectStore.completions[this.project.canonical];
+                console.log('checking stats readiness for ' + this.project.canonical);
+                return !!this.$store.state.projectStore.completions[this.project.canonical];
             },
             isAuthenticated() {
                 return this.$store.getters.isAuthenticated;
             },
-            languages() {
-                return this.$store.state.environmentStore.languages;
-            },
-            catalogues(){
-                return this.$store.state.environmentStore.catalogues;
-            },
             stats() {
                 return this.$store.state.projectStore.completions[this.project.canonical];
-            }
+            },
+            ...mapState(
+                {
+                    languages : state => state.environmentStore.languages,
+                    catalogues: state => state.environmentStore.catalogues
+                }
+            )
         }
     }
 </script>

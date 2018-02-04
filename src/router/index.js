@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
         return next();
     }
     if (store.getters.isAuthenticated) {
-        return next();
+        return store.dispatch('bootApplication').then(() => { return next(); });
     }
 
     next({

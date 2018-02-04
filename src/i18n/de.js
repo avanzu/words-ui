@@ -27,7 +27,7 @@ export default {
     },
     header     : {
         myProfile     : "Benutzerprofil {name}",
-        tabataWorkout : "Mache ein tabata workout"
+        projects  : "Projekte"
     },
     subheader  : {
         allExercises  : "Alle verfügbaren Übungen",
@@ -37,9 +37,10 @@ export default {
     },
     menu       : {
         home      : "Home",
-        exercises : "Alle Übungen",
+        projects  : "Alle Projekte",
         profile   : "{user}",
-        signOut   : "{user} abmelden"
+        signOut   : "{user} abmelden",
+
     },
     title      : {
         todaysWorkout     : "Mein heutiges &raquo;{msg}&laquo; workout",
@@ -59,12 +60,6 @@ export default {
         profileData       : "Profildaten"
 
     },
-    legend     : {
-        targetPreferences : "Bevorzugte Muskelgruppen",
-        typePreferences   : "Bevorzugte Übungsart",
-        bodyPartSettings  : "Muskelgruppen",
-        typeSettings      : "Übungsart"
-    },
     button     : {
         lookup  : "Alle anzeigen",
         shuffle : "Mischen...",
@@ -79,35 +74,10 @@ export default {
     label      : {
         username          : "Benutzername",
         password          : "Passwort",
-        tabata            : "Tabata",
-        emotm             : "Auf die Minute",
-        amrap             : "Runden auf Zeit",
         empty             : "Leer",
-        remaining         : "Verbleibend",
-        getReady          : "Bereit machen",
-        rest              : "Ausruhen",
-        work              : "Ausführen",
-        break             : "Pause",
-        coolDown          : "Abkühlen",
-        seconds           : "Sekunden",
         invalid           : "Ungültig",
-        numberOfExercises : "Anzahl an Übungen",
-        rounds            : "Runden",
-        numberOfMinutes   : "Dauer in Minuten",
         email             : "E-Mail",
         confirmPassword   : "Passwortbestätigung",
-        exercise          : {
-            name          : "Name der Übung",
-            description   : "Beschreibung",
-            difficulty    : "Schwierigkeit",
-            complexity    : "Komplexität",
-            duration      : "Ausführungszeit",
-            repsPerMinute : "Wiederhohlungen pro Minute",
-            bodyPart      : "Muskelgruppe",
-            type          : "Übungsart",
-            videoSource   : "Demo-Video",
-            thumbnail     : "Vorschau-Bild"
-        },
         signUp            : {
             email           : "E-Mail",
             confirmPassword : "Passwortbestätigung",
@@ -127,48 +97,10 @@ export default {
             female       : "Weiblich",
             firstName    : "Vorname",
             lastName     : "Nachname",
-            fitnessLevel : "Fitness-Level"
-        }
+        },
+        project: {
+            undefined: 'Unbekanntes Projekt'
+        },
     },
-    tags       : {
-        bodypart   : {
-            shoulders : "Schultern",
-            shoulder  : "Schultern",
-            chest     : "Brust",
-            back      : "Rücken",
-            biceps    : "Bizeps",
-            triceps   : "Trizeps",
-            core      : "Rumpf",
-            legs      : "Beine",
-            glutes    : "Gesäß",
-            fullbody  : "Ganzkörper"
-        },
-        type       : {
-            strength : "Kraft",
-            burst    : "Schnelligkeit",
-            cardio   : "Ausdauer"
-        },
-        difficulty : {
-            1 : 'einfach',
-            2 : 'normal',
-            3 : 'fortgeschritten',
-            4 : 'sehr',
-            5 : 'extrem'
-        },
-        complexity : {
-            1 : 'einfach',
-            2 : 'normal',
-            3 : 'fortgeschritten',
-            4 : 'sehr',
-            5 : 'extrem'
-        },
-        fitness    : {
-            1 : "schwach",
-            2 : "durchschnitt",
-            3 : "fortgeschritten",
-            4 : "sehr",
-            5 : "extrem"
-        }
-    }
 
 }

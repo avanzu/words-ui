@@ -65,21 +65,18 @@
         },
         beforeDestroy() {
             this.$eventHub.$off('escape-pressed', this.abortTranslation);
+            this.$store.dispatch('activateProject', false);
         },
 
         mounted() {
 
-            this.$store
-                // make sure the application is booted since we are able to access this page directly
-                .dispatch('bootApplication')
-                // boot done, load translations
-                .then(() => {
-                    this.$store.dispatch('loadTranslations', {
-                        project: this.project,
-                        catalogue: this.catalogue,
-                        language: this.locale
-                    });
-                });
+            this.$store.dispatch('loadTranslations', {
+                project  : this.project,
+                catalogue: this.catalogue,
+                language : this.locale
+            })
+            ;
+
         },
         methods : {
             /**
@@ -141,18 +138,15 @@
             }
         },
         computed: {
-            currentProject() {
-                // ...mapState does not work properly with dynamically added fields.
-                return this.$store.state.projectStore.projects[this.project];
-            },
             ...mapState({
-                            items   : state => state.translationStore.items,
-                            page    : state => state.translationStore.page,
-                            pages   : state => state.translationStore.pages,
-                            pageSize: state => state.translationStore.pageSize,
-                            loading : state => state.translationStore.loading,
-                            current : state => state.translationStore.current
-                        })
+                items         : state => state.translationStore.items,
+                page          : state => state.translationStore.page,
+                pages         : state => state.translationStore.pages,
+                pageSize      : state => state.translationStore.pageSize,
+                loading       : state => state.translationStore.loading,
+                current       : state => state.translationStore.current,
+                currentProject: state => state.projectStore.activeProject
+            })
         }
 
     }

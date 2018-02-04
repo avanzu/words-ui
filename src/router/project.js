@@ -51,7 +51,7 @@ export default [
             {
                 path      : '',
                 name      : 'projectHome',
-                component: projectcard,
+                component : projectcard,
                 meta: {
                     requiresAuth: true
                 }

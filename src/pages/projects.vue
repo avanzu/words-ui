@@ -1,6 +1,9 @@
 <template>
     <section>
-        <parallax-header :header="$t('header.projects')"></parallax-header>
+        <parallax-header :header="$t('header.projects')">
+            <router-link :to="{name:'createProject'}" v-if="isAuthenticated" id="add-project" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></router-link>
+        </parallax-header>
+        <indicator v-if="loading"></indicator>
         <div id="project-view">
         <div class="row">
             <div class="col m6" v-for="project in projects">
@@ -21,7 +24,9 @@
                 </div>
             </div>
         </div>
-            <router-link :to="{name:'createProject'}" v-if="isAuthenticated" id="add-project" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></router-link>
+            <pagination :current-page="page" :total-pages="pages" :items-per-page="pageSize" @page-changed="paginate" @pagesize-changed="paginateBlock"></pagination>
+
+
         </div>
     </section>
 </template>
@@ -30,16 +35,21 @@
     import appLayout   from './layout'
     import projectList from '../components/project/project-list'
     import {mapState}  from 'vuex';
-    import parallax  from '../components/parallax-header'
+    import parallax    from '../components/parallax-header'
+    import pager  from '../components/paginator';
 
     export default {
         components: {
             'parallax-header' : parallax,
+            'pagination' : pager,
             appLayout,
             projectList
         },
-        created() {
-            this.$store.dispatch('getProjects');
+        mounted() {
+            this.$store.dispatch('loadProjects', {
+                page     : this.page,
+                pageSize : this.pageSize
+            });
         },
         computed  : {
             isAuthenticated() {
@@ -48,9 +58,36 @@
             ...mapState(
                 {
                     loading : state => state.environmentStore.loading,
-                    projects: state => state.projectStore.projects
+                    projects: state => state.projectStore.projects,
+                    page    : state => state.projectStore.currentPage,
+                    pages   : state => state.projectStore.pages,
+                    pageSize: state => state.projectStore.pageSize
                 }
             )
+        },
+        methods: {
+            /**
+             * Loads the given page
+             *
+             * @param page
+             */
+            paginate(page) {
+                this.$store
+                    .dispatch('loadProjects', {
+                        page     : page,
+                        pageSize : this.pageSize
+                    });
+            },
+            /**
+             * Loads the first page with the given pagesize
+             * @param pagesize
+             */
+            paginateBlock(pagesize) {
+                this.$store.dispatch('loadProjects', {
+                    page     : 1,
+                    pageSize : pagesize
+                });
+            },
         }
     }
 </script>
@@ -62,7 +99,7 @@
     #add-project {
         position: absolute;
         right: 2em;
-        bottom: 2em;
+        top : 2em;
     }
     .project-description {
         height: 6.1em;

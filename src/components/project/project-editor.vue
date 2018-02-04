@@ -49,7 +49,7 @@
             }
         },
         computed: {
-            projectName() { return this.project ? this.project.name : this.$t('project.undefined'); }
+            projectName() { return this.project ? this.project.name : this.$t('label.project.undefined'); }
         },
         methods: {
             reset() {

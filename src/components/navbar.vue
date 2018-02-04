@@ -12,7 +12,7 @@
                         <a>{{ $t('menu.home') }}</a>
                     </router-link>
                     <router-link :to="{name: 'projectsIndex'}" tag="li" active-class="active" exact>
-                        <a>{{ $t('projects.home') }}</a>
+                        <a>{{ $t('menu.projects') }}</a>
                     </router-link>
                     <!--
                     <router-link :to="{name: 'exercises'}" tag="li" active-class="active">

@@ -6,7 +6,7 @@ Vue.use(vueResource);
 
 const urls = {
     index : Vue.resource(params.apiEndpoint + '/{project}/translations/translate/{language}/{catalogue}'),
-    update: Vue.resource(params.apiEndpoint + '/{project}/translations/translate/unit/{id}/{language}/{catalogue}')
+    update: Vue.resource(params.apiEndpoint + '/{project}/translations/translate/unit/{language}/{catalogue}')
 };
 
 const fetchTranslations = function ({project, language, catalogue}, {page, pageSize}) {
@@ -32,9 +32,9 @@ const putTranslation = function ({project, language, catalogue, transUnit}) {
                     project  : project,
                     language : language,
                     catalogue: catalogue,
-                    id       : transUnit.entityId
                 },
                 {
+                    key    : transUnit.id,
                     content: transUnit.localeString,
                     state  : transUnit.state
                 })

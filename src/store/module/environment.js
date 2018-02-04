@@ -6,7 +6,6 @@ const state = {
     appName   : 'Words!',
     links     : {},
     schemas   : {},
-    projects  : {},
     languages : [],
     catalogues: [],
     booted    : false,

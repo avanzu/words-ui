@@ -49,7 +49,7 @@ p {
 }
 
 .parallax.index {
-    background : url("../img/san-fran.jpg") no-repeat top center fixed;
+    background : url("../img/avanzu-bokeh.jpg") no-repeat top center fixed;
     /* filter: blur(8px); */
     filter     : blur(10px);
 }

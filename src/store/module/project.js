@@ -1,14 +1,13 @@
-import * as types   from '../mutation-types';
-import api          from '../../api/project';
-import Vue          from 'vue';
-import {copyObject} from '../../util/util';
+import * as types from '../mutation-types';
+import api        from '../../api/project';
+import Vue        from 'vue';
 
 const state     = {
     projects         : {},
     activeProject    : null,
     projectsLoaded   : false,
     pages            : 0,
-    currentPage      : 0,
+    currentPage      : 1,
     pageSize         : 10,
     completions      : {},
     completionsLoaded: {},
@@ -16,11 +15,11 @@ const state     = {
 
 };
 const actions   = {
-    loadProjects({commit, state}, page) {
+    loadProjects({commit, state}, {page, pageSize}) {
         page = page || 1;
         commit(types.PROJECTS_FETCH);
         return api
-            .fetchProjects(page, state.pageSize)
+            .fetchProjects(page, pageSize)
             .then(projects => {
                 commit(types.PROJECTS_FETCH_SUCCESS, projects);
                 return state.projects;
@@ -29,6 +28,50 @@ const actions   = {
                 commit(types.PROJECTS_FETCH_FAILURE, reason);
                 return Promise.reject(reason);
             })
+        ;
+    },
+    /**
+     * Returns the project record identified by the given canonical name.
+     * This method will prefer the store's state to resolve the project and will
+     * only issue an api call if the project cannot be resolved using the store's state.
+     *
+     * @param state
+     * @param dispatch
+     * @param commit
+     * @param canonical
+     * @return {Promise}
+     */
+    findProject({state, dispatch, commit}, canonical) {
+
+        if( false === canonical) {
+            return Promise.resolve(false);
+        }
+
+        if( state.projects[canonical]) {
+            return Promise.resolve(state.projects[canonical]);
+        }
+        commit(types.PROJECT_LOAD);
+        return api
+            .fetchProject(canonical)
+            .then(project => {
+                commit(types.PROJECT_LOAD_SUCCESS, project);
+                return project;
+            })
+            .catch(reason => {
+                commit(types.PROJECT_LOAD_FAILURE, reason);
+            });
+    },
+    activateProject({state, dispatch, commit}, project) {
+
+        return dispatch('findProject', project)
+        .then(project => {
+            commit(types.PROJECT_ACTIVATE, project);
+            return project;
+        })
+        .catch(reason => {
+            console.log('meh...', reason)
+        })
+        ;
     },
     loadStats({commit, state, dispatch}, project) {
         commit(types.PROJECT_STATS_FETCH, project);
@@ -42,55 +85,6 @@ const actions   = {
                 commit(types.PROJECT_STATS_FETCH_FAILURE, {project: project, reason: reason});
                 return Promise.reject(reason);
             });
-    },
-    loadCompletion({commit, state, dispatch}, project) {
-
-        return dispatch('getLanguages')
-            .then((languages) => {
-                let calls = [];
-                languages.forEach((language) => {
-                    calls.push(api.fetchCompletion(project, language))
-                });
-                return Promise.all(calls);
-            })
-            .then((stats) => {
-                commit(types.PROJECTS_FETCH_SUCCESS, stats);
-                return state.completions;
-            })
-            .catch(reason => {
-                commit(types.PROJECTS_FETCH_FAILURE, reason);
-                return Promise.reject(reason);
-            });
-
-    },
-    activateProject({state, dispatch, commit}, project) {
-
-        return new Promise( (resolve)  => {
-            if( false === project ) {
-                return resolve(state.projects);
-            }
-            if( state.projects[project]) {
-                return resolve(state.projects);
-            }
-            return dispatch('loadProjects');
-
-        })
-        .then((projects) => {
-
-            if( project === false ) {
-                return project;
-            }
-
-            if (projects[project]) {
-                return projects[project];
-            }
-
-            return Promise.reject('Unable to find project');
-        })
-        .then((project) => {
-            commit(types.PROJECT_ACTIVATE, project)
-        })
-            ;
     },
     updateProject({state, dispatch, commit}, project) {
         commit(types.PROJECT_SAVE, project);
@@ -157,12 +151,12 @@ const mutations = {
         state.projectsLoaded = false;
     },
     [types.PROJECTS_FETCH_SUCCESS](state, pager) {
-        state.projects    = pager.items;
         state.pages       = pager.pagesTotal;
         state.page        = pager.page;
         state.pageSize    = pager.pageSize;
-        state.completions = {};
+        // state.completions = {};
         pager.items.forEach(project => {
+            Vue.set(state.projects, project.canonical, project);
             Vue.set(state.completions, project.canonical, false);
         });
         state.projectsLoaded = true;
@@ -182,12 +176,21 @@ const mutations = {
     },
     [types.APPLICATION_BOOT_SUCCESS](state, env) {
         // store projects
+        /*
         env.projects.forEach((project) => {
             Vue.set(state.projects, project.canonical, project);
             Vue.set(state.completions, project.canonical, false);
         });
 
         state.projectsLoaded = true;
+        */
+    },
+    [types.PROJECT_LOAD](state){},
+    [types.PROJECT_LOAD_SUCCESS](state, project){
+        Vue.set(state.projects, project.canonical, project);
+    },
+    [types.PROJECT_LOAD_FAILURE](state, reason){
+
     },
     [types.PROJECT_ACTIVATE](state, project){
         state.activeProject = project;
