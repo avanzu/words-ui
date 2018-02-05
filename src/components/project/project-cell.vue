@@ -1,7 +1,7 @@
 <template>
     <span>
         <router-link :to="{ name: 'translateCatalogue', params: {project: project, catalogue: catalogue, locale: language }}">
-        {{ total }} / {{ translated }}
+        {{ translated }} / {{ total }}
     </router-link>
     </span>
 </template>
