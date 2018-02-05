@@ -8,7 +8,15 @@ const urls = {
     index : Vue.resource(params.apiEndpoint + '/{project}/translations/translate/{language}/{catalogue}'),
     update: Vue.resource(params.apiEndpoint + '/{project}/translations/translate/unit/{language}/{catalogue}')
 };
-
+/**
+ *
+ * @param project
+ * @param language
+ * @param catalogue
+ * @param page
+ * @param pageSize
+ * @return {Promise}
+ */
 const fetchTranslations = function ({project, language, catalogue}, {page, pageSize}) {
     return urls
         .index
@@ -25,6 +33,14 @@ const fetchTranslations = function ({project, language, catalogue}, {page, pageS
         });
 };
 
+/**
+ *
+ * @param project
+ * @param language
+ * @param catalogue
+ * @param transUnit
+ * @return {Promise}
+ */
 const putTranslation = function ({project, language, catalogue, transUnit}) {
     return urls
         .update

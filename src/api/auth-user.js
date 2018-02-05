@@ -7,7 +7,10 @@ import params from '../parameters';
 
 
 Vue.use(vueResource);
-
+/**
+ *
+ * @type {{token: string, info: string, profile: string, register: string}}
+ */
 const urls = {
     token   : params.apiDomain + '/oauth/v2/token',
     info    : params.apiDomain + '/api/account/profile/',
@@ -55,7 +58,11 @@ const authenticate = (credentials) => {
         .catch(reason => Promise.reject( reason.body ? reason.body : reason ) )
 };
 
-
+/**
+ *
+ * @param postData
+ * @return Promise
+ */
 const register = function (postData) {
 
     return Vue

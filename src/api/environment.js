@@ -6,11 +6,16 @@ import vueResource from 'vue-resource';
 import params      from '../parameters';
 
 Vue.use(vueResource);
-
+/**
+ *
+ * @type {{index: <Resource>}}
+ */
 const urls = {
     index: Vue.resource(params.apiEndpoint + '/environment')
 };
-
+/**
+ * @return Promise
+ */
 const bootApplication = function () {
 
     return urls
@@ -23,6 +28,9 @@ const bootApplication = function () {
         ;
 };
 
+/**
+ * @return Promise
+ */
 const reloadApplication = function () {
     return urls
         .index

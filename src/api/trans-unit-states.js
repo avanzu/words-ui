@@ -13,9 +13,8 @@ export const states = {
 };
 
 /**
- * maps states to colors
  *
- * @type {{}}
+ * @type {{STATE_NEW: string, STATE_TRANSLATED: string, STATE_NEEDS_TRANSLATION: string, STATE_NEEDS_REVIEW_TRANSLATION: string, STATE_FINAL: string, STATE_SIGNED_OFF: string}}
  */
 export const colorMap = {
 

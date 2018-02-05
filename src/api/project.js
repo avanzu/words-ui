@@ -4,6 +4,17 @@ import params      from '../parameters';
 
 Vue.use(vueResource);
 
+/**
+ *
+ * @type {{
+ * index: <Resource>,
+ * show:<Resource>,
+ * completed: <Resource>,
+ * stats:<Resource>,
+ * update:<Resource>,
+ * create:<Resource>
+ *     }}
+ */
 const urls = {
     index    : Vue.resource(params.apiEndpoint + '/'),
     show     : Vue.resource(params.apiEndpoint + '/projects/{project}'),
@@ -13,7 +24,12 @@ const urls = {
     create   : Vue.resource(params.apiEndpoint + '/projects/create')
 };
 
-
+/**
+ *
+ * @param page
+ * @param pageSize
+ * @return Promise
+ */
 const fetchProjects = function (page, pageSize) {
     page     = page || 1;
     pageSize = pageSize || 10;
@@ -29,14 +45,22 @@ const fetchProjects = function (page, pageSize) {
         })
         ;
 };
-
+/**
+ *
+ * @param canonical
+ * @return Promise
+ */
 const fetchProject = function(canonical) {
     return urls.show.get({project: canonical}).then(response => {
         if(response.status !== 200) return Promise.reject(response);
         return response.body.result;
     })
 };
-
+/**
+ *
+ * @param project
+ * @return Promise
+ */
 const fetchStats = function (project) {
     return urls
         .stats
@@ -48,7 +72,12 @@ const fetchStats = function (project) {
             return {project: project, stats: response.body.result.resource};
         });
 };
-
+/**
+ *
+ * @param project
+ * @param locale
+ * @return Promise
+ */
 const fetchCompletion = function (project, locale) {
     return urls
         .completed
@@ -62,6 +91,11 @@ const fetchCompletion = function (project, locale) {
         })
 };
 
+/**
+ *
+ * @param project
+ * @return Promise
+ */
 const updateProject = function(project) {
     return urls
         .update
@@ -71,7 +105,11 @@ const updateProject = function(project) {
             return response.body.result;
         });
 };
-
+/**
+ *
+ * @param project
+ * @return Promise
+ */
 const createProject = function(project) {
     return urls
         .create
