@@ -55,6 +55,14 @@ export const PROJECT_SAVE_FAILURE = 'PROJECT_SAVE_FAILURE';
 
 // -----------------------------------------------------------------------------------------------------------TRANS-UNIT
 
+export const TRANSUNIT_ENQUEUE_FILE  = 'TRANSUNIT_ENQUEUE_FILE';
+export const TRANSUNIT_DEQUEUE_FILE  = 'TRANSUNIT_DEQUEUE_FILE';
+
+export const TRANSUNIT_UPLOAD         = 'TRANSUNIT_UPLOAD';
+export const TRANSUNIT_UPLOAD_SUCCESS = 'TRANSUNIT_UPLOAD_SUCCESS';
+export const TRANSUNIT_UPLOAD_FAILURE = 'TRANSUNIT_UPLOAD_FAILURE';
+
+
 
 // ----------------------------------------------------------------------------------------------------------TRANSLATION
 

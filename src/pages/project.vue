@@ -4,7 +4,7 @@
 
         <div class="row" v-if="editorAvailable">
             <div class="col s10 offset-s1" id="project-container">
-                <router-view :project="project" @update-project="handleUpdate" @create-project="handleCreate" @cancel="handleCancel"></router-view>
+                <router-view :project="project" @update-project="handleUpdate" @create-project="handleCreate" @cancel="handleCancel" @upload-catalogue="handleUpload"></router-view>
 
             </div>
         </div>
@@ -59,10 +59,13 @@
                 this.$router.push({name: 'projectsIndex'});
             },
             handleUpdate(content) {
-                this.$store.dispatch('updateProject', content).then(() => { this.index(); });
+                this.$store.dispatch('updateProject', content).then(() => this.index());
             },
             handleCreate(content) {
-                this.$store.dispatch('createProject', content).then(() => { this.index(); });
+                this.$store.dispatch('createProject', content).then(() =>  this.index() );
+            },
+            handleUpload(files) {
+                this.$store.dispatch('uploadCatalogue', {project: this.project, file: files}).then(() =>  this.index() );
             },
             handleCancel() {
                 this.index();

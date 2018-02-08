@@ -27,6 +27,9 @@
             <router-link :to="{name: 'updateProject', params: {'slug': project.canonical }}" class="btn" v-if="isAuthenticated">
                 <i class="material-icons">mode_edit</i>
             </router-link>
+            <router-link :to="{name: 'uploadCatalogue', params: {'slug': project.canonical }}" class="btn" v-if="isAuthenticated">
+                <i class="material-icons">file_upload</i>
+            </router-link>
 
         </div>
         <div class="card-reveal blue-grey darken-3 white-text">
