@@ -60,7 +60,7 @@
 </template>
 
 <script type="text/javascript">
-    import {appName}  from '../parameters' ;
+    import {AppName}  from '../parameters' ;
     import {path}    from '../util/avatars';
     import xdebug from './xdebug';
 
@@ -68,7 +68,7 @@
         components:{ xdebug },
         computed : {
             appName() {
-                return appName;
+                return AppName;
             },
             currentUser() {
                 return this.$store.state.authUserStore.profile;

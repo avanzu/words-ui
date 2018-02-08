@@ -1,6 +1,6 @@
 # words-ui
 
-> A Vue.js project
+> A Vue.js project serving as frontend for the _words_ symfony project. 
 
 ## Build Setup
 
@@ -8,6 +8,26 @@
 # install dependencies
 npm install
 
+# create parameters file
+cp parameters.js.dist parameters.js
+
+```
+## Configure
+``` javascript 
+// parameters.js 
+
+{
+    // ...
+    client_id      : '<YOUR OAUTH CLIENT ID>',  
+    client_secret  : '<YOUR OAUTH CLIENT SECRET>' , 
+    apiDomain      : '<API HOSTNAME>' , 
+    /... 
+}
+
+```
+
+## Run 
+``` bash
 # serve with hot reload at localhost:8080
 npm run dev
 

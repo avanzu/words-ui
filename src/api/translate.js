@@ -29,7 +29,7 @@ const fetchTranslations = function ({project, language, catalogue}, {page, pageS
              })
         .then(response => {
             if (response.status !== 200) return Promise.reject(response);
-            return response.body.result.resource;
+            return response.body.resource;
         });
 };
 
@@ -56,7 +56,7 @@ const putTranslation = function ({project, language, catalogue, transUnit}) {
                 })
         .then(response => {
             if (response.status >= 400) return Promise.reject(response);
-            return response.body.result.resource;
+            return response.body.resource;
         })
         ;
 };
