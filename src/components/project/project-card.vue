@@ -9,7 +9,9 @@
                 <thead>
                 <tr>
                     <th>catalogue</th>
-                    <th v-for="language in languages">{{language}}</th>
+                    <th v-for="language in languages">
+                        {{ language }}
+                    </th>
                 </tr>
                 </thead>
                 <tbody v-if="statsReady">
@@ -20,6 +22,17 @@
                     </td>
                 </tr>
                 </tbody>
+                <tfoot v-if="statsReady">
+                <tr>
+                    <th></th>
+                    <th v-for="language in languages">
+                        <a class="purple btn btn-flat white-text btn-block" :href="getDownloadLink(language)">
+                            {{ $t('button.downloadLanguage', {language: language}) }}
+                              <i class="material-icons tiny left">archive</i>
+                        </a>
+                    </th>
+                </tr>
+                </tfoot>
             </table>
 
         </div>
@@ -30,7 +43,7 @@
             <router-link :to="{name: 'uploadCatalogue', params: {'slug': project.canonical }}" class="btn" v-if="isAuthenticated">
                 <i class="material-icons">file_upload</i>
             </router-link>
-
+            <a href=""></a>
         </div>
         <div class="card-reveal blue-grey darken-3 white-text">
             <span class="card-title">
@@ -45,6 +58,7 @@
 </template>
 <script type="text/javascript">
     import cell from './project-cell'
+    import params from '../../parameters'
     import { mapState } from 'vuex'
     export default {
         components: {
@@ -54,6 +68,12 @@
         props: ['project'],
         mounted() {
             this.$store.dispatch('loadStats', this.project.canonical);
+        },
+        methods : {
+            getDownloadLink(locale) {
+                // /common/translations/file/en.zip
+                return params.apiDomain + '/' + this.project.canonical + '/translations/file/' + locale + '.zip' ;
+            },
         },
         computed: {
             statsReady() {

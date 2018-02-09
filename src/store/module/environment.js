@@ -117,6 +117,9 @@ const mutations = {
         state.booted  = false;
         state.loading = false;
         state.error   = reason;
+    },
+    [types.TRANSUNIT_UPLOAD_SUCCESS](state) {
+        state.booted = false;
     }
 
 };

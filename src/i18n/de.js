@@ -69,7 +69,8 @@ export default {
         save    : "Speichern",
         signIn  : "Anmelden",
         home    : "Zur Startseite",
-        signUp  : "Registrieren"
+        signUp  : "Registrieren",
+        downloadLanguage: "{language}"
     },
     label      : {
         username          : "Benutzername",
